@@ -1,0 +1,17 @@
+{
+  "name": "app-clim-tac",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "color": "^4.2.3",
+    "colors": "^1.4.0",
+    "inquirer": "^8.0.0"
+  }
+}
