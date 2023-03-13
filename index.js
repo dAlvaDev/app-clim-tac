@@ -1,29 +1,34 @@
-const { leerInput, inquirerMenu, pausa, } = require('./helpers/inquirer');
+require('dotenv').config();
+
+const { leerInput, inquirerMenu, pausa, listarLugares, } = require('./helpers/inquirer');
 const Busquedas = require('./models/busquedas');
 
-
+console.log(process.env.MAPBOX_KEY);
 const main = async() => {
     
-    const Busquedas = new Busquedas();
+    const busquedas = new Busquedas();
     let opt;
 
     do{
 
         opt = await inquirerMenu();
-        console.log({opt});
         
         switch( opt ) {
 
             case 1:
                 // Mostrar mensaje
                 const termino = await leerInput('Ciudad: ');
-                console.log(lugar);
+                await busquedas.ciudad(termino);
                 
                 // Buscar los lugares
-                
+                const lugares = await busquedas.ciudad( termino );
                 
                 // Seleccionar el lugar
-                
+                const id = await listarLugares(lugares);
+                if ( id === '0' ) continue;
+
+                const lugarSel = lugares.find( l => l.id === id );
+                console.log(lugarSel);
 
                 // Clima
                 
@@ -31,9 +36,9 @@ const main = async() => {
                 // Mostrar resultados
                 console.clear();
                 console.log('\nInformación de la ciudad\n'.green);
-                console.log('Ciudad:',  );
-                console.log('Lat:',  );
-                console.log('Lng:', l);
+                console.log('Ciudad:', lugarSel.nombre );
+                console.log('Lat:', lugarSel.lat );
+                console.log('Lng:', lugarSel.lng);
                 console.log('Temperatura:', );
                 console.log('Mínima:',  );
                 console.log('Máxima:', );
